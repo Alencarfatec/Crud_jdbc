@@ -32,22 +32,24 @@ public class Pessoa {
     }
     
     public void atualizar() throws Exception{
-    	String sql = "UPDATE tb_pessoa SET nome = ?, fone = ?, email = ? WHERE cod_pessoa = "+getCodigo();
+    	String sql = "UPDATE tb_pessoa SET nome = ?, fone = ?, email = ? WHERE cod_pessoa = ?";
     	ConnectionFactory factory = new ConnectionFactory();
     	try(Connection conexao = factory.getConnection();
     			PreparedStatement ps = conexao.prepareStatement(sql)){
     		ps.setString(1, nome);
             ps.setString(2, fone);
             ps.setString(3, email);
+            ps.setString(4, codigo);
             ps.execute();
     	}
     }
     
     public void deletar() throws Exception{
-    	String sql = "DELETE FROM tb_pessoa WHERE cod_pessoa = "+getCodigo();
+    	String sql = "DELETE FROM tb_pessoa WHERE cod_pessoa = ?";
     	ConnectionFactory factory = new ConnectionFactory();
     	try(Connection conexao = factory.getConnection();
     			PreparedStatement ps = conexao.prepareStatement(sql)){
+    		ps.setString(1, codigo);
             ps.execute();
     	}
     }
@@ -58,7 +60,7 @@ public class Pessoa {
     	ConnectionFactory factory = new ConnectionFactory();
     	try(Connection conexao = factory.getConnection();
     			PreparedStatement ps = conexao.prepareStatement(sql)){
-    		ResultSet resultSet = ps.executeQuery(sql);
+    		ResultSet resultSet = ps.executeQuery();
             while(resultSet.next()) {
             	for(int i = 1; i <= 4; i++) {
             		sb.append(resultSet.getString(i)+" ");
@@ -76,13 +78,14 @@ public class Pessoa {
     }
     
     public Pessoa (String codigo) throws Exception {
-    	setCodigo(""+codigo+"");
-    	String sql = "SELECT * FROM tb_pessoa WHERE cod_pessoa = "+getCodigo();
+    	String sql = "SELECT * FROM tb_pessoa WHERE cod_pessoa = ?";
     	ConnectionFactory factory = new ConnectionFactory();
     	try(Connection conexao = factory.getConnection();
     			PreparedStatement ps = conexao.prepareStatement(sql)){
-    		ResultSet resultSet = ps.executeQuery(sql);
+    		ps.setString(1, codigo);
+    		ResultSet resultSet = ps.executeQuery();
     		while(resultSet.next()) {
+    			setCodigo(codigo);
         		setNome(resultSet.getString(2));
         		setFone(resultSet.getString(3));
         		setEmail(resultSet.getString(4));

@@ -13,9 +13,9 @@ public class Program {
                op = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch (op){
                     case 1:
-                        String nome = JOptionPane.showInputDialog("Digite o novo nome");
-                        String fone = JOptionPane.showInputDialog("Digite o novo fone");
-                        String email = JOptionPane.showInputDialog("Digite o novo e-mail");
+                        String nome = JOptionPane.showInputDialog("Digite o nome");
+                        String fone = JOptionPane.showInputDialog("Digite o fone");
+                        String email = JOptionPane.showInputDialog("Digite o e-mail");
                         Pessoa p = new Pessoa(nome, fone, email);
                         if((nome == null && fone == null && email == null) || (nome.isBlank() || fone.isBlank() || email.isBlank())) {
                         	JOptionPane.showMessageDialog(null, "Preencha todos os campos");
@@ -29,18 +29,18 @@ public class Program {
                     	String codigo = JOptionPane.showInputDialog("Selecione uma pessoa para atualizar:\n\n"+result+"\nDigite o codigo da pessoa: ");
                     	p = new Pessoa(codigo);
                     	if(p.getNome() != null) {
-                    		nome = JOptionPane.showInputDialog("Atual = "+p.getNome()+"\nDigite o nome");
-                            fone = JOptionPane.showInputDialog("Atual = "+p.getFone()+"\nDigite o fone");
-                            email = JOptionPane.showInputDialog("Atual = "+p.getEmail()+"\nDigite o e-mail");
+                    		nome = JOptionPane.showInputDialog("Atual = "+p.getNome()+"\nDigite o novo nome");
+                            fone = JOptionPane.showInputDialog("Atual = "+p.getFone()+"\nDigite o novo fone");
+                            email = JOptionPane.showInputDialog("Atual = "+p.getEmail()+"\nDigite o novo e-mail");
                             if((nome == null || fone == null || email == null) || (nome.isBlank() || fone.isBlank() || email.isBlank())) {
                             	JOptionPane.showMessageDialog(null, "Preencha todos os campos");
                             }else {
-                            	int deletar = JOptionPane.showConfirmDialog(null, "Atualização a ser feita:\n"
+                            	int confirmar = JOptionPane.showConfirmDialog(null, "Atualização a ser feita:\n"
 	                            		+ "Atual -> Novo\n"
 	                            		+ p.getNome()+" -> "+nome+"\n"
 	                            		+ p.getFone()+" -> "+fone+"\n"
 	                            		+ p.getEmail()+" -> "+email);
-	                    		if(deletar == 0) {
+	                    		if(confirmar == 0) {
 	                    			p.setNome(nome);
 	                    			p.setFone(fone);
 	                    			p.setEmail(email);
@@ -57,13 +57,13 @@ public class Program {
                     	codigo = JOptionPane.showInputDialog("Selecione uma pessoa para apagar:\n\n"+result+"\nDigite o codigo da pessoa: ");
                     	p = new Pessoa(codigo);
                     	if(p.getNome() != null) {
-                    		int deletar = JOptionPane.showConfirmDialog(null,"Pessoa a ser deletada:\n"
+                    		int confirmar = JOptionPane.showConfirmDialog(null,"Pessoa a ser deletada:\n"
                     				+ "Codigo: "+p.getCodigo()+"\n"
                     				+ "Nome: "+p.getNome()+"\n" 
                     				+ "Fone: "+p.getFone()+"\n"
                     				+ "Email: "+p.getEmail()+"\n"
                     				+ "Deseja realmente deletar?");
-                    		if(deletar == 0) {
+                    		if(confirmar == 0) {
                     			p.deletar();
                     			JOptionPane.showMessageDialog(null, "Pessoa: "+p.getNome()+"\nCodigo: "+p.getCodigo()+"\nDeletada");
                     		}
