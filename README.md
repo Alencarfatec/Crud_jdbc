@@ -1,2 +1,7 @@
 # Crud_jdbc
- crud em java
+
+## Integrantes
+
+- André Alencar dos Santos
+- Rafael Santana
+- Patrick Olinto Duarte
